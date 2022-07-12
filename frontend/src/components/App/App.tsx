@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 
+type Time = {
+  Name: string;
+  Age: number;
+  Date: string;
+};
+
 function App() {
+  const [time, setTime] = useState({
+    name: "",
+    age: 0,
+    date: ""
+  });
+
+  useEffect(() => {
+    fetch("/time").then((res) =>
+        res.json().then((time: Time) => {
+            // Setting a data from api
+            setTime({
+                name: time.Name,
+                age: time.Age,
+                date: time.Date,
+            });
+        })
+    );
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Housify</h1>
+        <p>{time.name}</p>
+        <p>{time.age}</p>
+        <p>{time.date}</p>
       </header>
     </div>
   );
+
 }
 
 export default App;
