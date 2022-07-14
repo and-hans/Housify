@@ -1,3 +1,5 @@
+# do this in C
+
 income = 70000  # get after tax
 
 home_price = 750000
