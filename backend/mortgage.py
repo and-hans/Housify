@@ -1,12 +1,13 @@
-income = 70000
+income = 70000  # get after tax
 
 home_price = 750000
 down_payment = 250000
 
-fixed_rate_5y = 4.34/100  # 4.34%
+fixed_rate_5y = 4.34/100  # 4.34%  # web scrap
 variable_rate_5y = 3.50/100  # 3.50%
 
-property_tax_tor = 0.611013/100
+# entire GTA
+property_tax_tor = 0.611013/100  # web scrap
 prop_tax = home_price*property_tax_tor
 
 amort_per = 25
