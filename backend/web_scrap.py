@@ -25,7 +25,8 @@ class PropertyTax:
     '''
     def __init__(self):
         self.city = 'Toronto'
-        self.URL = 'https://www.toronto.ca/services-payments/property-taxes-utilities/property-tax/property-tax-rates-and-fees/'
+        self.URL = '''https://www.toronto.ca/services-payments/
+            property-taxes-utilities/property-tax/property-tax-rates-and-fees/'''
         self.page = requests.get(self.URL)
         self.soup = BeautifulSoup(self.page.content, "html.parser")
         self.results = None
