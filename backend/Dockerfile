@@ -10,6 +10,11 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+RUN pip install gunicorn
+
+EXPOSE 5000
+
+# 4 workers
+CMD [ "gunicorn", "-w", "4", "--bind", "0.0.0.0:5000", "wsgi"]
 
 # https://docs.docker.com/language/python/build-images/
