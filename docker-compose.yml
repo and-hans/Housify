@@ -7,32 +7,42 @@ services:
  database:
   image: mongo:latest
   container_name: mongo-container
-  #env_file: ./dev.env
+  restart: unless-stopped
   enviornment:
    - MONGO_INITDB_DATABASE: housify
    - MONGO_INITDB_ROOT_USERNAME: root
    - MONGO_INITDB_ROOT_PASSWORD: pass
-   - MONGODB_DATA_DIR: /data/db
+   - MONGODB_DATA_DIR: /data/db  # stores data here
    - MONDODB_LOG_DIR: /dev/null
   ports:
    - 27017:27017
   volumes:
-   - mongodbdata:/data/db
+   - mongodbdata:/data/db  # data in /data/db gets written to the mongodbdata volume
    # - mongodb_config:/data/configdb
   networks:
-   - backend
+   - backend  # only accessible through the backend
 
  # React frontend
 
- frontend:
-  container_name: frontend
+ react:
+  container_name: react
   build: 
    context: frontend
+   dockerfile: Dockerfile
+  image: node:latest
+  restart: unless-stopped
+  volumes:
+   - clientdata:/frontend
+  depends_on:
+   - flask
+  networks:
+   - frontend
+   - backend
 
  # Flask backend
 
- backend:
-  container_name: backend
+ flask:
+  container_name: flask
   build:
    context: backend  # backend folder
    dockerfile: Dockerfile
@@ -45,12 +55,12 @@ services:
    MONGODB_DATABASE: housify
    MONGODB_HOSTNAME: mongodb
   volumes:
-   - appdata:/var/www  # appdata volume
+   - appdata:/backend  # appdata volume mounted in /backend  (application logs)
   depends_on:
-   - database
-  networks:
-   - frontend
-   - backend
+   - database  # depends on the database to function properly
+  networks:  # has access to the frontend and backend
+   - frontend  # needs to be publically accessible
+   - backend  # needs to be hidden behind
 
  # webserver
 
@@ -70,8 +80,7 @@ services:
    - "80:80"
    - "443:443"
   volumes:
-   - nginxdata:/var/log/nginx
-   - ./nginx.conf:/etc/nginx/conf.d/default.conf
+   - nginxdata:/var/log/nginx  # mounts nginxdata volume in the /var/log/nginx directory (web server logs)
   depends_on:
    - flask
   networks:
@@ -79,18 +88,21 @@ services:
 
 # service done
 
-networks:
+networks:  # allows the containers to talk to each other
   frontend:
     driver: bridge
   backend:
     driver: bridge
 
-volumes:
+volumes:  # declares the volumes that the application will use to persist data
   mongodbdata:
-    driver: local
+    driver: local  # uses a local driver to store the data locally
   appdata:
     driver: local
   nginxdata:
     driver: local
+  clientdata:
+    driver: local
  
  #  docker-compose -f docker-compose.dev.yml up --build
+ # docker-compose up -d
