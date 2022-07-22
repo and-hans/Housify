@@ -1,14 +1,19 @@
-FROM node:alpine
+FROM node:latest
 
-WORKDIR /app
+RUN mkdir -p /app/frontend
 
-COPY package.json ./
+WORKDIR /app/frontend
 
-COPY package-lock.json ./
+ENV PATH /app/node_modules/.bin:$PATH
 
-COPY ./ ./
+# copies package and package-lock
+COPY package*.json ./
 
-RUN npm i
+RUN npm install --silent
+
+COPY . .
+
+EXPOSE 3000
 
 CMD ["npm", "run", "start"]
 
