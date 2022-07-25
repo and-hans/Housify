@@ -3,14 +3,13 @@ import Plot from 'react-plotly.js';
 
 type Data = {
     label: string;
-    status: number;
+    status?: number;
 };
 
 const Api: React.FC = () => {
 
     const [data, setData] = useState({
         label: "Graph",
-        status: 500
     });
 
     useEffect( () => {
@@ -18,7 +17,6 @@ const Api: React.FC = () => {
             res.json().then( (points: Data) => {
                 setData({
                     label: points.label,
-                    status: points.status
                 });
             })
         );
@@ -46,7 +44,7 @@ const Api: React.FC = () => {
                         marker: {color: 'blue'}
                     }
                 ]}
-                layout={ {width: 700, height: 500, title: data.label+' '+data.status } }
+                layout={ {width: 700, height: 500, title: data.label } }
                 />
             </div>
         </div>  
