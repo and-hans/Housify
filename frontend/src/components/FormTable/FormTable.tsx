@@ -1,12 +1,13 @@
 import React from 'react';
 import {Table} from 'flowbite-react'
+import { TableHeadCell } from 'flowbite-react/lib/esm/components/Table/TableHeadCell';
 // import Table from 'flowbite/plugin.js'
 
 interface Data {
-    product: string;
-    colour: string;
-    category: string
-    price: number
+    dataset: string;
+    id: number;
+    home_price: string;
+    price_meter: number;
 };
 
 interface Props {
@@ -17,49 +18,52 @@ const FormTable: React.FC<Props> = ({props}: Props) => {
 
     return (
         <Table hoverable={true}>
-            <Table.Head>
+            <Table.Head className="text-left-1">
                 <Table.HeadCell>
-                    Product name
+                    Dataset
                 </Table.HeadCell>
                 <Table.HeadCell>
-                    Color
+                    ID
                 </Table.HeadCell>
                 <Table.HeadCell>
-                    Category
+                    Home Price
                 </Table.HeadCell>
                 <Table.HeadCell>
-                    Price
-            </Table.HeadCell>
+                    Price/Meter
+                </Table.HeadCell>
             <Table.HeadCell>
                 <span className="sr-only">
                     Edit
                 </span>
             </Table.HeadCell>
             </Table.Head>
-            <Table.Body className="divide-y">
-                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                    Macbook
-                </Table.Cell>
-                <Table.Cell>
-                    Sliver
-                </Table.Cell>
-                <Table.Cell>
-                    Laptop
-                </Table.Cell>
-                <Table.Cell>
-                    $2999
-                </Table.Cell>
-                <Table.Cell>
-                    <a
-                    href="/tables"
-                    className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                    >
-                    Edit
-                    </a>
-                </Table.Cell>
-                </Table.Row>
-            </Table.Body>
+            {props?.map((prop: Data) => {
+                        return (
+                            <Table.Body className="divide-y">
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                        {prop.dataset}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {prop.id}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {prop.home_price}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {prop.price_meter}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        <a
+                                        href="/tables"
+                                        className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+                                        >
+                                            Edit
+                                        </a>
+                                    </Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        )})}
         </Table>
     )
 }

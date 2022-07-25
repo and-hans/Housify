@@ -10,30 +10,30 @@ import Api from '../Api/Api';
 import FormTable from '../FormTable/FormTable';
 
 interface Data {
-  product: string;
-  colour: string;
-  category: string
-  price: number
+  dataset: string;
+  id: number;
+  home_price: string
+  price_meter: number,
 };
 
 const data1: Data[] =[
   {
-    product: "Airpods",
-    colour: "White",
-    category: "Earphones",
-    price: 200
+    dataset: "GTA Property Price",
+    id: 1,
+    home_price: '$799,000',
+    price_meter: 0.799,
   },
   {
-    product: "iPad",
-    colour: "Space Grey",
-    category: "Tablet",
-    price: 1000
+    dataset: "GTA Property Price",
+    id: 2,
+    home_price: "$989,000",
+    price_meter: 0.989,
   },
   {
-    product: "Macbook",
-    colour: "Silver",
-    category: "Laptop",
-    price: 2999
+    dataset: "GTA Property Price",
+    id: 3,
+    home_price: "$999,900",
+    price_meter: 1.001,
   },
 ];
 
