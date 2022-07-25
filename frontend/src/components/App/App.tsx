@@ -1,43 +1,19 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
+import Navbar from '../Navbar/Navbar';
+import Mortgage from '../Mortgage/Mortgage';
+import Title from '../Title/Title';
+import MortgageBody from '../MortgageBody/MortgageBody';
 
-type Time = {
-  Name: string;
-  Age: number;
-  Date: string;
-};
-
-function App() {
-  const [time, setTime] = useState({
-    name: "",
-    age: 0,
-    date: ""
-  });
-
-  useEffect(() => {
-    fetch("/time").then((res) =>
-        res.json().then((time: Time) => {
-            // Setting a data from api
-            setTime({
-                name: time.Name,
-                age: time.Age,
-                date: time.Date,
-            });
-        })
-    );
-  }, []);
-
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Housify</h1>
-        <p>{time.name}</p>
-        <p>{time.age}</p>
-        <p>{time.date}</p>
-      </header>
+    <div>
+      <div><Navbar /></div>
+      <div><Title prop={'Mortgage Calculator'}/></div>
+      <div><MortgageBody /></div>
+      <div><Mortgage /></div>
     </div>
   );
-
 }
 
 export default App;
