@@ -1,8 +1,6 @@
 FROM node:latest
 
-RUN mkdir -p /app/frontend
-
-WORKDIR /app/frontend
+WORKDIR /frontend
 
 ENV PATH /app/node_modules/.bin:$PATH
 
