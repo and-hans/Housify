@@ -43,11 +43,7 @@ def can_afford(total):
   else:
     return(f'You cannot afford it! Mortgage is {quo*100}% of income')
 
-mort = home_monthly_payments(fixed_rate_5y)
-tot = total_monthly_payments(mort)
-diff = interest_quo_original(mort)
-afford = can_afford(tot)
-print(mort)
-print(tot)
-print(diff)
-print(afford)
+# mort = home_monthly_payments(fixed_rate_5y)
+# tot = total_monthly_payments(mort)
+# diff = interest_quo_original(mort)
+# afford = can_afford(tot)
