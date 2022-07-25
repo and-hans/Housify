@@ -30,6 +30,8 @@ services:
    context: frontend
    dockerfile: Dockerfile
   image: node:latest
+  ports: 
+   - 3000:3000
   restart: unless-stopped
   volumes:
    - clientdata:/frontend
@@ -46,6 +48,8 @@ services:
   build:
    context: backend  # backend folder
    dockerfile: Dockerfile
+  ports: 
+    - 5000:5000
   image: python:3.10.5-slim-buster  # python image
   restart: unless-stopped  # stops when you stop the container
   enviornment:  # env variables
