@@ -16,10 +16,9 @@ def catch_all(path):
 #     return jsonify({'message':'hello'})
 
 
-@app.route('/mortgage', methods=['GET'])
+@app.route('/linereg')
 def mortgage():
-    if request.method == 'GET':
-        return jsonify(status=200, text="Here is a test response")
+    return jsonify(status=200, label="Linear Regression")
 
 
 @app.route('/time')
