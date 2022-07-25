@@ -1,15 +1,9 @@
 import datetime
 import os
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify
 
-app = Flask(__name__, template_folder="../frontend/public", static_folder="../frontend/public")
+app = Flask(__name__)
 
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    """ This is a catch all that is required for react-router """
-    return render_template('index.html')
 
 # @app.route('/')
 # def index():
