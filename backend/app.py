@@ -1,6 +1,6 @@
 import datetime
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
@@ -11,8 +11,17 @@ app = Flask(__name__)
 
 
 @app.route('/linereg')
-def mortgage():
+def linereg():
     return jsonify(status=200, label="Linear Regression")
+
+@app.route('/mortgage', method=["POST"])
+def mortgage():
+    query = [
+        request.args.get("house_info"), 
+        request.args.get("about"),
+        request.args.get("house_type")
+    ]
+    pass
 
 
 @app.route('/time')
