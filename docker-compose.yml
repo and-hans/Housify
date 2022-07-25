@@ -5,7 +5,7 @@ services:
  # mongodb database
 
  database:
-  image: mongo:latest
+  image: mongo:5.0.9-focal
   container_name: mongo-container
   restart: unless-stopped
   enviornment:
@@ -29,7 +29,7 @@ services:
   build: 
    context: frontend
    dockerfile: Dockerfile
-  image: node:latest
+  image: node:18.6-buster-slim
   ports: 
    - 3000:3000
   restart: unless-stopped
