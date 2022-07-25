@@ -49,13 +49,13 @@ services:
    context: backend  # backend folder
    dockerfile: Dockerfile
   ports: 
-    - 5000:5000
+    - 5001:5001
   image: python:3.10.5-slim-buster  # python image
   restart: unless-stopped  # stops when you stop the container
   enviornment:  # env variables
    APP_ENV: "Production"
    APP_DEBUG: "False"
-   APP_PORT: 5000
+   APP_PORT: 5001
    MONGODB_DATABASE: housify
    MONGODB_HOSTNAME: mongodb
   volumes:
@@ -81,8 +81,8 @@ services:
    APP_DEBUG: "false"
    SERVICE_NAME: "webserver"
   ports:
-   - "80:80"
-   - "443:443"
+   - 80:80
+   - 443:443
   volumes:
    - nginxdata:/var/log/nginx  # mounts nginxdata volume in the /var/log/nginx directory (web server logs)
   depends_on:

@@ -10,9 +10,9 @@ COPY . .
 
 RUN pip install gunicorn
 
-EXPOSE 5000
+EXPOSE 5001
 
 # 4 workers
-CMD [ "gunicorn", "-w", "4", "--bind", "0.0.0.0:5000", "wsgi"]
+CMD [ "gunicorn", "-w", "4", "--bind", "0.0.0.0:5001", "wsgi"]
 
 # https://docs.docker.com/language/python/build-images/
