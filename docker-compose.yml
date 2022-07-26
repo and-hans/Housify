@@ -2,34 +2,11 @@ version: '3.8'
 
 services:
 
- # mongodb database
-
- database:
-  image: mongo:5.0.9-focal
-  container_name: mongo-container
-  restart: unless-stopped
-  enviornment:
-   - MONGO_INITDB_DATABASE: housify
-   - MONGO_INITDB_ROOT_USERNAME: root
-   - MONGO_INITDB_ROOT_PASSWORD: pass
-   - MONGODB_DATA_DIR: /data/db  # stores data here
-   - MONDODB_LOG_DIR: /dev/null
-  ports:
-   - "27017:27017"
-  volumes:
-   - mongodbdata:/data/db  # data in /data/db gets written to the mongodbdata volume
-   # - mongodb_config:/data/configdb
-  networks:
-   - backend  # only accessible through the backend
-
  # React frontend
 
  react:
   container_name: react
-  build: 
-   context: frontend
-   dockerfile: Dockerfile
-  image: node:18.6-buster-slim
+  build: ./frontend
   ports: 
    - "3000:3000"
   restart: unless-stopped
@@ -45,19 +22,10 @@ services:
 
  flask:
   container_name: flask
-  build:
-   context: backend  # backend folder
-   dockerfile: Dockerfile
+  build: ./backend
   ports: 
     - "5001:5001"
-  image: python:3.10.5-slim-buster  # python image
   restart: unless-stopped  # stops when you stop the container
-  enviornment:  # env variables
-   APP_ENV: "Production"
-   APP_DEBUG: "False"
-   APP_PORT: 5001
-   MONGODB_DATABASE: housify
-   MONGODB_HOSTNAME: mongodb
   volumes:
    - appdata:/backend  # appdata volume mounted in /backend  (application logs)
   depends_on:
@@ -69,11 +37,8 @@ services:
  # webserver
 
  webserver:
-  build:
-   context: nginx
-   dockerfile: Dockerfile
-  image: nginx:latest
   container_name: webserver
+  build: ./nginx
   restart: unless-stopped
   environment:
    APP_ENV: "Production"
@@ -83,12 +48,11 @@ services:
   ports:
    - 80:80
    - 443:443
-  volumes:
-   - nginxdata:/var/log/nginx  # mounts nginxdata volume in the /var/log/nginx directory (web server logs)
   depends_on:
    - flask
   networks:
    - frontend
+   - backend
 
 # service done
 
@@ -99,11 +63,7 @@ networks:  # allows the containers to talk to each other
     driver: bridge
 
 volumes:  # declares the volumes that the application will use to persist data
-  mongodbdata:
-    driver: local  # uses a local driver to store the data locally
   appdata:
-    driver: local
-  nginxdata:
     driver: local
   clientdata:
     driver: local
