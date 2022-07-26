@@ -6,8 +6,11 @@ import Mortgage from '../Mortgage/Mortgage';
 import Title from '../Title/Title';
 import MortgageBody from '../MortgageBody/MortgageBody';
 import Slideshow from '../Slideshow/Slideshow';
-import Api from '../Api/Api';
+import Api from '../Graph/Graph';
 import FormTable from '../FormTable/FormTable';
+import About from '../About/About';
+import Footer from '../Footer/Footer'
+import Learn from '../Learn/Learn'
 
 interface Data {
   dataset: string;
@@ -48,6 +51,7 @@ const App: React.FC = () => {
           <>
             <div><Navbar/></div>
             <div><Slideshow /></div>
+            <div><Footer /></div>
           </>
         }
         />
@@ -59,6 +63,7 @@ const App: React.FC = () => {
             <div><Title prop={'Mortgage Calculator'}/></div>
             <div><MortgageBody /></div>
             <div><Mortgage /></div>
+            <div><Footer /></div>
           </>
         }
         />
@@ -66,7 +71,9 @@ const App: React.FC = () => {
         <Route path="/learn" element={
           <>
             <div><Navbar /></div>
-            <div><Title prop={'Learn'}/></div> 
+            <div><Title prop={'Learn'}/></div>
+            <div><Learn /></div>
+            <div><Footer /></div> 
           </>
         }
         />
@@ -77,6 +84,7 @@ const App: React.FC = () => {
             <div><Title prop={'Graphs'}/></div>
             <div><Api /></div>
             <div><FormTable props={data1}/></div>
+            <div><Footer /></div>
           </>
         } 
         />
@@ -84,7 +92,9 @@ const App: React.FC = () => {
         <Route path="/about" element={
           <>
             <div><Navbar /></div>
-            <div><Title prop={'About'}/></div>  
+            <div><Title prop={'About'}/></div>
+            <div><About /></div>
+            <div><Footer /></div>
           </>
         } 
         />
