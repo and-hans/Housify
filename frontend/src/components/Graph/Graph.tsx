@@ -9,7 +9,7 @@ type Data = {
 const Api: React.FC = () => {
 
     const [data, setData] = useState({
-        label: "Graph",
+        label: "Line Chart",
     });
 
     useEffect( () => {
@@ -23,7 +23,7 @@ const Api: React.FC = () => {
     }, []);
     return (
         <div className="shadow-lg rounded-lg overflow-hidden">
-            <div className="py-3 px-5 bg-gray-50">Line Chart</div>
+            <div className="py-3 px-5 bg-gray-50">{data.label} </div>
             <div>
                 <Plot
                 className="md:left-12 md:mx-80"
