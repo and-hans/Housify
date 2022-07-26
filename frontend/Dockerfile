@@ -11,9 +11,11 @@ RUN npm install --silent
 
 COPY . .
 
+ENV PORT=3000
+
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["npm" , "start"]
 
 # docker build -f Dockerfile -t client .
 # docker run -it -p 3000:3000 client
