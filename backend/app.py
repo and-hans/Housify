@@ -1,18 +1,12 @@
-import datetime
 import os
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
 
-# @app.route('/')
-# def index():
-#     return jsonify({'message':'hello'})
-
-
-@app.route('/linereg')
+@app.route('/random_forest')
 def linereg():
-    return jsonify(status=200, label="Linear Regression")
+    return jsonify(status=200, label="Random Forest")
 
 @app.route('/mortgage', method=["POST"])
 def mortgage():
@@ -22,12 +16,6 @@ def mortgage():
         request.args.get("house_type")
     ]
     pass
-
-
-@app.route('/time')
-def date_time():
-    date_and_time = {'Name': 'Microsoft Experience', 'Age': 190, 'Date': datetime.datetime.now()}
-    return jsonify(date_and_time)
 
 
 if __name__ == "__main__":
