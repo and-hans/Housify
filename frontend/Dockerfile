@@ -1,8 +1,6 @@
 FROM node:18.6-buster-slim
 
-WORKDIR /frontend
-
-ENV PATH /app/node_modules/.bin:$PATH
+WORKDIR /app
 
 # copies package and package-lock
 COPY package*.json ./
