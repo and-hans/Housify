@@ -1,7 +1,5 @@
 import React from 'react';
 import {Table} from 'flowbite-react'
-import { TableHeadCell } from 'flowbite-react/lib/esm/components/Table/TableHeadCell';
-// import Table from 'flowbite/plugin.js'
 
 interface Data {
     dataset: string;
