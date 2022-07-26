@@ -3,19 +3,22 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
+@app.route('/')
+def route():
+    return jsonify(message="hello")
 
 @app.route('/random_forest')
 def linereg():
     return jsonify(status=200, label="Random Forest")
 
-@app.route('/mortgage', method=["POST"])
-def mortgage():
-    query = [
-        request.args.get("house_info"), 
-        request.args.get("about"),
-        request.args.get("house_type")
-    ]
-    pass
+# @app.route('/mortgage', method=["POST"])
+# def mortgage():
+#     query = [
+#         request.args.get("house_info"), 
+#         request.args.get("about"),
+#         request.args.get("house_type")
+#     ]
+#     pass
 
 
 if __name__ == "__main__":
