@@ -61,7 +61,6 @@ class RandomForest:
         # now for the entire dataset
         self.property_prediction = property_model.predict(self.X)
 
-
     def to_csv(self) -> None:
         '''
         ### Functionality
