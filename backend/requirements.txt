@@ -4,3 +4,4 @@ beautifulsoup4
 Flask-PyMongo
 scikit-learn
 pandas
+gunicorn

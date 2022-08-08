@@ -10,11 +10,4 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-RUN pip install gunicorn
-
-EXPOSE 5002
-
-# 4 workers
-CMD [ "gunicorn", "--bind", "0.0.0.0:5002", "wsgi:app"]
-
 # https://docs.docker.com/language/python/build-images/

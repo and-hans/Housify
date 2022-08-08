@@ -7,60 +7,53 @@ services:
  react:
   container_name: react
   build: ./frontend
-  ports: 
-   - "3000:3000"
   restart: unless-stopped
   volumes:
-   - clientdata:/frontend
-  depends_on:
-   - flask
+    - clientdata:/frontend
   networks:
-   - frontend
-   - backend
+   housify-network:
+    aliases:
+      - frontend
+  ports: 
+   - "3000:3000"
 
  # Flask backend
 
  flask:
   container_name: flask
   build: ./backend
-  ports: 
-    - "5001:5001"
+  command: gunicorn --bind 0.0.0.0:5000 --workers 4 "wsgi:app"
   restart: unless-stopped  # stops when you stop the container
   volumes:
    - appdata:/backend  # appdata volume mounted in /backend  (application logs)
-  depends_on:
-   - database  # depends on the database to function properly
   networks:  # has access to the frontend and backend
-   - frontend  # needs to be publically accessible
-   - backend  # needs to be hidden behind
+   housify-network:
+    aliases:
+      - backend
+  expose:
+    - 5000
+  ports: 
+    - "5000:5000"
 
  # webserver
 
- webserver:
-  container_name: webserver
+ nginx:
+  container_name: nginx
   build: ./nginx
   restart: unless-stopped
-  environment:
-   APP_ENV: "Production"
-   APP_NAME: "Housify"
-   APP_DEBUG: "false"
-   SERVICE_NAME: "webserver"
   ports:
    - 80:80
    - 443:443
   depends_on:
    - flask
+   - react
   networks:
-   - frontend
-   - backend
+   - housify-network
 
 # service done
 
 networks:  # allows the containers to talk to each other
-  frontend:
-    driver: bridge
-  backend:
-    driver: bridge
+  housify-network:
 
 volumes:  # declares the volumes that the application will use to persist data
   appdata:
